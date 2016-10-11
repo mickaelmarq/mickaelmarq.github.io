@@ -513,7 +513,7 @@ html {
 .two-face .two-face__right {
   position: relative;
   width: 50%;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .two-face .two-face__left {
