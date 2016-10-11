@@ -9815,79 +9815,70 @@ return jQuery;
 }));
 
 },{}],2:[function(require,module,exports){
-'use strict';
-
-// Constructor
-var Link = function() {
-  this.name = 'Link';
-  console.log('%s module', this.name);
-};
-
-module.exports = Link;
-
-},{}],3:[function(require,module,exports){
 // Main javascript entry point
 // Should handle bootstrapping/starting application
 
 'use strict';
 
 var $ = require('jquery');
-var Link = require('../_modules/link/link');
 
-$(function() {
-  new Link(); // Activate Link modules logic
-  console.log('Welcome to Yeogurt!');
-});
 
 if(typeof InstallTrigger !== 'undefined'){
+
+  //IF Firefox
+
   $('.work__img-container').scroll(function() {
     var offset = -($(this).scrollLeft());
     var asside = $(this).closest('.work').find('.two-face__scroll');
     asside.css('left', (offset + 20)+'px');
-    // if(offset >= 100){
-    //   $(this).closest('.two-face__content').addClass('max');
-    // }else{
-    //   $(this).closest('.two-face__content').removeClass('max');
-    // }
+    if(offset >= 100){
+      $(this).closest('.two-face__content').addClass('max');
+    }else{
+      $(this).closest('.two-face__content').removeClass('max');
+    }
   });
+
 }else{
   $('.work__img-container').scroll(function() {
     var offset = -($(this).scrollLeft() - $(this).prop("scrollWidth") + $(this).innerWidth());
     var asside = $(this).closest('.work').find('.two-face__scroll');
     console.log($(this).scrollLeft());
     asside.css('left', (offset + 20)+'px');
-    // if(offset >= 100){
-    //   $(this).closest('.two-face__content').addClass('max');
-    // }else{
-    //   $(this).closest('.two-face__content').removeClass('max');
-    // }
+    if(offset >= 100){
+      $(this).closest('.two-face__content').addClass('max');
+    }else{
+      $(this).closest('.two-face__content').removeClass('max');
+    }
   });
+
+  $('.wrapper').addClass('scale-ok');
+
 }
 
-$(window).scroll(function() {
-  $('.two-face__content').removeClass('max');
+// $(window).scroll(function() {
+//   $('.two-face__content').removeClass('max');
+// });
+
+
+//drag
+var curDown = false,
+    curXPos = 0;
+$('.work__img-container').mousemove(function(m){
+  if(curDown === true){
+   $(this).scrollLeft($(this).scrollLeft() + (curXPos - m.pageX)/10);
+  }
 });
 
-// var curDown = false,
-//     curXPos = 0;
-// $('.work__img-container').mousemove(function(m){
-//   if(curDown === true){
-//    $(this).scrollLeft($(this).scrollLeft() + (curXPos - m.pageX)/4);
-//    console.log($(this).scrollLeft());
-//    console.log((curXPos - m.pageX));
-//   }
-// });
-//
-// $('.work__img-container').mousedown(function(m){
-//   curDown = true;
-//   curXPos = m.pageX;
-// });
-//
-// $('.work__img-container').mouseup(function(){
-//   curDown = false;
-// });
+$('.work__img-container').mousedown(function(m){
+  curDown = true;
+  curXPos = m.pageX;
+});
 
-},{"../_modules/link/link":2,"jquery":1}]},{},[3])
+$('.work__img-container').mouseup(function(){
+  curDown = false;
+});
+
+},{"jquery":1}]},{},[2])
 
 
 //# sourceMappingURL=main.js.map
